@@ -39,10 +39,6 @@ flutter pub get
    # Google Sign-In Configuration
    GOOGLE_CLIENT_ID=your_google_client_id_here
 
-   # Firebase Configuration
-   FIREBASE_PROJECT_ID=your_firebase_project_id
-   FIREBASE_API_KEY_ANDROID=your_android_api_key
-   FIREBASE_API_KEY_IOS=your_ios_api_key
    ```
 
 ### 4. Firebase Setup
@@ -85,12 +81,9 @@ lib/
 
 ## Environment Variables
 
-| Variable                   | Description                | Required |
-| -------------------------- | -------------------------- | -------- |
-| `GOOGLE_CLIENT_ID`         | Google OAuth 2.0 Client ID | Yes      |
-| `FIREBASE_PROJECT_ID`      | Firebase Project ID        | Yes      |
-| `FIREBASE_API_KEY_ANDROID` | Firebase Android API Key   | Yes      |
-| `FIREBASE_API_KEY_IOS`     | Firebase iOS API Key       | Yes      |
+| Variable           | Description                | Required |
+| ------------------ | -------------------------- | -------- |
+| `GOOGLE_CLIENT_ID` | Google OAuth 2.0 Client ID | Yes      |
 
 ## Security Notes
 
