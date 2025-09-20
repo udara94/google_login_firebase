@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,16 +20,33 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     try {
+      if (kDebugMode) {
+        debugPrint('LoginPage - Starting Google Sign-In');
+      }
+
       final User? user = await AuthService.signInWithGoogle();
+
+      if (kDebugMode) {
+        debugPrint('LoginPage - Sign-in result: ${user?.uid}');
+      }
+
       if (user != null) {
-        // Navigate to home page or show success message
+        if (kDebugMode) {
+          debugPrint('LoginPage - Sign-in successful, navigating to HomePage');
+        }
+        // Manual navigation as backup
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Welcome, ${user.displayName ?? 'User'}!'),
-              backgroundColor: Colors.green,
-            ),
-          );
+          // Try named route first, fallback to direct navigation
+          try {
+            Navigator.of(context).pushReplacementNamed('/home');
+          } catch (e) {
+            if (kDebugMode) {
+              debugPrint('Named route failed, using direct navigation: $e');
+            }
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          }
         }
       } else {
         if (mounted) {
@@ -40,6 +59,9 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     } catch (e) {
+      if (kDebugMode) {
+        debugPrint('LoginPage - Sign-in error: $e');
+      }
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),

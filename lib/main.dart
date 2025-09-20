@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -57,6 +56,14 @@ class AuthWrapper extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
+        if (kDebugMode) {
+          debugPrint(
+            'AuthWrapper - Connection state: ${snapshot.connectionState}',
+          );
+          debugPrint('AuthWrapper - Has data: ${snapshot.hasData}');
+          debugPrint('AuthWrapper - User: ${snapshot.data?.uid}');
+        }
+
         // Show loading indicator while checking auth state
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
@@ -66,10 +73,16 @@ class AuthWrapper extends StatelessWidget {
 
         // If user is signed in, show home page
         if (snapshot.hasData) {
+          if (kDebugMode) {
+            debugPrint('AuthWrapper - Navigating to HomePage');
+          }
           return const HomePage();
         }
 
         // If user is not signed in, show login page
+        if (kDebugMode) {
+          debugPrint('AuthWrapper - Navigating to LoginPage');
+        }
         return const LoginPage();
       },
     );

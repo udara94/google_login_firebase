@@ -52,9 +52,11 @@
 			<string>REVERSED_CLIENT_ID</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.77656428247-pmvq7b4atmb7m8c52grsb98v68la50v0</string>
+				<string>com.googleusercontent.apps.583682918271-0au9iktmebq4f7e678r26h6epm3el32o</string>
 			</array>
 		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>583682918271-0au9iktmebq4f7e678r26h6epm3el32o.apps.googleusercontent.com</string>
 </dict>
 </plist>

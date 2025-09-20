@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../config/app_config.dart';
 
 class AuthService {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -14,24 +13,19 @@ class AuthService {
   // Sign in with Google
   static Future<User?> signInWithGoogle() async {
     try {
-      // Initialize GoogleSignIn with client ID from environment
-      await _googleSignIn.initialize(clientId: AppConfig.googleClientId);
-
       // First, sign out any existing user to avoid reauth issues
       await _googleSignIn.signOut();
 
       // Trigger the authentication flow
-      final GoogleSignInAccount? googleUser = await _googleSignIn
-          .authenticate();
+      final googleUser = await _googleSignIn.authenticate();
 
-      // If user cancels the sign-in
+      // Check if authentication was successful
       if (googleUser == null) {
         return null;
       }
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
       // Check if we have the required tokens
       if (googleAuth.idToken == null) {
