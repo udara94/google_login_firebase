@@ -11,9 +11,6 @@ class AuthService {
   // Get current user
   static User? get currentUser => _auth.currentUser;
 
-  // Stream of auth state changes
-  static Stream<User?> get authStateChanges => _auth.authStateChanges();
-
   // Sign in with Google
   static Future<User?> signInWithGoogle() async {
     try {
